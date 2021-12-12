@@ -1,71 +1,57 @@
-const express = require("express");
-const router = express.Router();
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const config = require('../config/database');
 
-const User = require("../models/user");
-const config = require("../config/database");
-
-router.post("/register", (req, res, next) => {
-  let newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    username: req.body.username,
-    password: req.body.password,
-  });
-
-  User.getUserByUsername(newUser.username, (err, user) => {
-    if (err) throw err;
-    if (user) {
-      return res.json({
-        success: false,
-        msg: "That ID already exists!",
-      });
-    } else {
-      User.addUser(newUser, (err, user) => {
-        if (err) {
-          res.json({ success: false, msg: "Fail to SignUP" });
-        } else {
-          res.json({ success: true, msg: "SignUP Complete!" });
-        }
-      });
-    }
-  });
+const UserSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
 });
 
-router.post("/authenticate", (req, res, next) => {
-  const username = req.body.username;
-  const password = req.body.password;
-  User.getUserByUsername(username, (err, user) => {
-    if (err) throw err;
-    if (!user) {
-      return res.json({ success: false, msg: "NONE!" });
-    }
-    User.comparePassword(password, user.password, (err, isMatch) => {
-      if (err) throw err;
-      if (isMatch) {
-        let tokenUser = {
-          _id: user._id,
-          name: user.name,
-          username: user.username,
-          email: user.email,
-        };
-        const token = jwt.sign({ data: tokenUser }, config.secret, {
-          expiresIn: 864000,
-        });
-        res.json({
-          success: true,
-          token: token,
-          userNoPW: tokenUser,
-        });
-      } else {
-        return res.json({
-          success: false,
-          msg: "ERROR PASSWORD!",
-        });
-      }
+const User = mongoose.model('User', UserSchema);
+
+User.getUserById = function(id, callback) {
+  User.findById(id, callback);
+};
+
+User.getUserByUsername = function(username, callback) {
+  const query = { username: username };
+  User.findOne(query, callback);
+};
+
+User.addUser = function(newUser, callback) {
+  bcrypt.genSalt(25, (err, salt) => {
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if(err) throw err;
+      newUser.password = hash;
+      newUser.save(callback);
     });
   });
-});
+}
 
-module.exports = router;
+User.comparePassword = function(candidatePassword, hash, callback){
+  bcrypt.compare(candidatePassword, hash, (err, isMatch)=>{
+    if(err) throw err;
+    callback(null, isMatch);
+  });
+}
+
+User.getAll = function (callback) {
+  User.find(callback);
+}
+
+
+module.exports = User;
