@@ -1,0 +1,18 @@
+<p>아래에 입력해서 기타 천체 정보를 확인하세요!</p>
+<form>
+     <input matInput type="text" placeholder="입력하세요.." [(ngModel)]="inputName" [ngModelOptions]="{standalone: true}">
+</form>
+  
+ <p *ngIf="inputName == '태양'">{{inputName}}은 태양계의 근원입니다.<br>
+     크기는 {{sunsize}}km, 온도는 {{suntemp}}K입니다.<br>
+      <img src="../../../assets/280px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA's_Solar_Dynamics_Observatory_-_20100819.jpg">
+ </p>
+ <p *ngIf="inputName == '왜행성'">{{inputName}}의<br>
+     대표적인 예로는 "명왕성, 에리스, 세레스 등"<br>
+      <img src="../../../assets/Eris_and_dysnomia2.jpg">
+ </p>
+ <p *ngIf="inputName == '혜성'">{{inputName}}은 태양 복사에 의해 핵으로부터 발생한 코마(핵을 둘러싼 구름층)와 꼬리를 갖는 천체<br>
+      <img src="../../../assets/220px-Comet-Hale-Bopp-29-03-1997_hires_adj.jpg">
+ </p>
+
+ <app-comments></app-comments>

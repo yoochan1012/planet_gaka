@@ -1,0 +1,56 @@
+<form (ngSubmit)="addComment()">
+    <div class="form-group">
+        <label for="exampleInputEmail3"> 제목</label>
+        <input
+            type="text"
+            [(ngModel)]="title"
+            [ngModelOptions]="{standalone: true}"
+            class="form-control"
+            id="exampleInputEmail3"
+        />
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputEmail3"> 본문</label>
+        <input
+            type="text"
+            [(ngModel)]="text"
+            [ngModelOptions]="{standalone: true}"
+            class="form-control"
+            id="exampleInputEmail3"
+        />
+    </div>
+    <br />
+    <div class="form-group">
+        <label for="exampleInputEmail3">넣고 싶은 것..</label>
+        <input
+            type="text"
+            [(ngModel)]="addtext"
+            [ngModelOptions]="{standalone: true}"
+            class="form-control"
+            id="exampleInputEmail3"
+        />
+    </div>
+<input type="submit" class="btn btn-primary" value="넣기" />
+</form>
+
+
+<div class="container">
+    <div>
+        댓글 목록
+    </div>
+    <div *ngFor = "let comment of comments">
+        <div class="col md-3">
+            {{comment.title}}
+        </div>
+        <div class="col md-3">
+            {{comment.text}}
+        </div>
+        <div class="col md-3">
+            {{comment.addtext}}
+        </div>
+        <div class="col md-3">
+            <input type = "button">
+        </div>
+    </div>
+</div>

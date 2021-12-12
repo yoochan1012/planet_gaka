@@ -1,0 +1,12 @@
+
+
+<ul class = "alert alert-success planets">
+    <li *ngFor = "let planet of Planets">
+   <a routerLink = "/planetinfo/{{planet.id}}">
+    {{planet.id}}: {{planet.name}}</a>
+</li>
+</ul>
+
+<img width="100%" src="../../../assets/Planets2008K.jpg">
+
+<app-comments></app-comments>

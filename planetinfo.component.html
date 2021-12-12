@@ -1,0 +1,56 @@
+<div *ngIf = "planet" class="alert alert-info">
+    <h2>{{planet.name | uppercase}} Info</h2>
+    <div>
+      <span>거리: </span>{{planet.distance}}km<br>
+      <span>적도 반지름: </span>{{planet.size}}km<br>
+      <span>표면 온도: </span>{{planet.temparature}}K<br>
+      <span>자전 주기: </span>{{planet.days}}일<br>
+      <span>공전 주기: </span>{{planet.years}}일<br>
+      <span>위성 개수: </span>{{planet.sate}}개<br>
+      <span>상세 정보: </span>{{planet.description}}<br>
+    </div>
+    <button (click)="goBack()" class="bg-info">Back</button>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">사진</th>
+      <th scope="col">행성이름</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row"><img width="150" height="100" src="../../../assets/Mercury_in_color_-_Prockter07.jpg"></th>
+      <td>수성(Mercury)</td>
+    </tr>
+    <tr>
+      <th scope="row"><img width="100" height="100" src="../../../assets/Venus-real_color.jpg"></th>
+      <td>금성(Venus)</td>
+    </tr>
+    <tr>
+      <th scope="row"><img width="100" height="100" src="../../../assets/The_Earth_seen_from_Apollo_17.jpg"></th>
+      <td>지구(Earth)</td>
+    </tr>
+    <tr>
+      <th scope="row"><img width="100" height="100" src="../../../assets/240px-Mars_Hubble.jpg"></th>
+      <td>화성(Mars)</td>
+    </tr>
+    <tr>
+      <th scope="row"><img width="100" height="100" src="../../../assets/Jupiter_New_Horizons.jpg"></th>
+      <td>목성(Jupiter)</td>
+    </tr>
+    <tr>
+      <th scope="row"><img width="100" height="100" src="../../../assets/1920px-Saturn_during_Equinox.jpg"></th>
+      <td>토성(Saturn)</td>
+    </tr>
+    <tr>
+      <th scope="row"><img width="100" height="100" src="../../../assets/225px-Uranus.jpg"></th>
+      <td>천왕성(Uranus)</td>
+    </tr>
+    <tr>
+      <th scope="row"><img width="100" height="100" src="../../../assets/Neptune.jpg"></th>
+      <td>해왕성(Neptune)</td>
+    </tr>
+  </tbody>
+</table>
